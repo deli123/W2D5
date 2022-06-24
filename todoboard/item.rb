@@ -8,7 +8,7 @@ class Item
         if !(month >= 1 && month <= 12)
             return false
         end
-        if !(day >= 1 && day <= 30)
+        if !(day >= 1 && day <= 31)
             return false
         end
         return true
