@@ -58,4 +58,51 @@ class List
         end
         puts "-" * 45
     end
+
+    def print_full_item(index)
+        if self.valid_index?(index)
+            puts "-" * 45
+            puts "#{@items[index].title.ljust(35)}#{@items[index].deadline.ljust(45)}"
+            puts "#{@items[index].description.ljust(45)}"
+            puts "-" * 45
+        end
+    end
+
+    def print_priority
+        self.print_full_item(0)
+    end
+
+    def up(index, amount = 1)
+        if !self.valid_index?(index)
+            return false
+        else
+            copy = @items[index]
+            @items.delete_at(index)
+            if index - amount <= 0
+                    @items.insert(0, copy)
+            else
+                    @items.insert(index - amount, copy)
+            end
+            return true
+        end
+    end
+
+    def down(index, amount = 1)
+        if !self.valid_index?(index)
+            return false
+        else
+            copy = @items[index]
+            @items.delete_at(index)
+            if index + amount >= @items.length
+                    @items.insert(-1, copy)
+            else
+                    @items.insert(index + amount, copy)
+            end
+            return true
+        end
+    end
+
+    def sort_by_date!
+        @items.sort_by! { |item| item.deadline }
+    end
 end
