@@ -49,23 +49,23 @@ class List
     end
 
     def print
-        puts "-" * 45
+        puts "-" * 53
         puts @label.upcase
-        puts "-" * 45
-        puts "#{"Index".ljust(7)} | #{"Item".ljust(21)} | Deadline".ljust(45)
-        puts "-" * 45
+        puts "-" * 53
+        puts "#{"Index".ljust(7)} | #{"Item".ljust(21)} | #{"Deadline".ljust(11)} | Done".ljust(10) 
+        puts "-" * 53
         @items.each_with_index do |item, i|
-            puts "#{i.to_s.ljust(7)} | #{item.title.ljust(21)} | #{item.deadline.ljust(45)}"
+            puts "#{i.to_s.ljust(7)} | #{item.title.ljust(21)} | #{item.deadline.ljust(11)} | #{item.done}".ljust(10)
         end
-        puts "-" * 45
+        puts "-" * 53
     end
 
     def print_full_item(index)
         if self.valid_index?(index)
-            puts "-" * 45
-            puts "#{@items[index].title.ljust(35)}#{@items[index].deadline.ljust(45)}"
-            puts "#{@items[index].description.ljust(45)}"
-            puts "-" * 45
+            puts "-" * 53
+            puts "#{@items[index].title.ljust(34)}#{@items[index].deadline.ljust(11)} | #{@items[index].done}".ljust(10)
+            puts "#{@items[index].description.ljust(53)}"
+            puts "-" * 53
         end
     end
 
@@ -105,5 +105,32 @@ class List
 
     def sort_by_date!
         @items.sort_by! { |item| item.deadline }
+    end
+
+    def toggle_item(index)
+        if !self.valid_index?(index)
+            return false
+        else
+            @items[index].toggle
+        end
+    end
+
+    def remove_item(index)
+        if !self.valid_index?(index)
+            return false
+        else
+            @items.delete_at(index)
+            return true
+        end
+    end
+
+    def purge
+        while !@items.all? { |it| !it.done }
+            @items.each_with_index do |item, i|
+                if item.done
+                    @items.delete_at(i)
+                end
+            end
+        end
     end
 end
