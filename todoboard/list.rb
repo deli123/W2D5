@@ -50,9 +50,10 @@ class List
 
     def print
         puts "-" * 45
-        puts @label
+        puts @label.upcase
         puts "-" * 45
         puts "#{"Index".ljust(7)} | #{"Item".ljust(21)} | Deadline".ljust(45)
+        puts "-" * 45
         @items.each_with_index do |item, i|
             puts "#{i.to_s.ljust(7)} | #{item.title.ljust(21)} | #{item.deadline.ljust(45)}"
         end
