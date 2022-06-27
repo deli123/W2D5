@@ -1,8 +1,8 @@
 require_relative "list"
 
 class TodoBoard
-    def initialize(label)
-        @list = List.new(label)
+    def initialize()
+        @lists = {}
     end
 
     def get_command
@@ -26,6 +26,9 @@ class TodoBoard
             @list.remove_item(*args.map!(&:to_i))
         when 'purge'
             @list.purge
+
+        when 'mklist'
+            
         when 'priority'
             @list.print_priority
         when 'print'
@@ -46,5 +49,9 @@ class TodoBoard
     def run
         while self.get_command
         end
+    end
+
+    def make_list(label)
+        @lists[label] = List.new(label)
     end
 end
